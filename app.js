@@ -43,7 +43,6 @@ var page3 = function () {
 
 var page4 = function() {
   player1.name = $("#p1name").val();
-  playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
   if (humanPlayers === 2) {
     player2.name = $("#p2name").val();
   }
@@ -53,12 +52,14 @@ var page4 = function() {
 var page5x = function () {
   player1.symbol = "x";
   player2.symbol = "o";
+  playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
   page5();
 };
 
 var page5o = function () {
   player1.symbol = "o";
   player2.symbol = "x";
+  playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
   page5();
 };
 
@@ -80,28 +81,31 @@ var checkTurn = function(id) {
   }
 };
 
-var checkForWin = function() {
+var checkForWin = function(id) {
   if ($("#1").text() !== "" && $("#1").text() === $("#2").text() && $("#2").text() === $("#3").text()) {
-    whoWon();
+    whoWon(id);
   } else if ($("#1").text() !== "" && $("#1").text() === $("#5").text() && $("#5").text() === $("#9").text()) {
-    whoWon();
+    whoWon(id);
   } else if ($("#1").text() !== "" && $("#1").text() === $("#4").text() && $("#4").text() === $("#7").text()) {
-    whoWon();
+    whoWon(id);
   } else if ($("#2").text() !== "" && $("#2").text() === $("#5").text() && $("#5").text() === $("#8").text()){
-    whoWon();
+    whoWon(id);
   } else if ($("#3").text() !== "" && $("#3").text() === $("#6").text() && $("#6").text() === $("#9").text()) {
-    whoWon();
+    whoWon(id);
   } else if ($("#3").text() !== "" && $("#3").text() === $("#5").text() && $("#5").text() === $("#7").text()) {
-    whoWon();
+    whoWon(id);
   } else if ($("#4").text() !== "" && $("#4").text() === $("#5").text() && $("#5").text() === $("#6").text()) {
-    whoWon();
+    whoWon(id);
   } else if ($("#7").text() !== "" && $("#7").text() === $("#8").text() && $("#8").text() === $("#9").text()) {
-    whoWon();
+    whoWon(id);
+  } else if ( $("#1").text() !== "" && $("#2").text() !== "" && $("#3").text() !== "" && $("#4").text() !== "" && $("#5").text() !== "" &&
+   $("#6").text() !== "" && $("#7").text() !== "" && $("#8").text() !== "" && $("#9").text() !== "") {
+    $(".page").html("<p>Draw</p><br><button onclick='page5()'>Play Again</button>");
   }
 };
 
-var whoWon = function () {
-  if ( player1.symbol == $("#1").text() ){
+var whoWon = function (id) {
+  if ( player1.symbol == $(id).text() ){
     player1.score = player1.score + 1;
     $(".page").html("<p>" + player1.name + " wins!</p><br><button onclick='page5()'>Play Again</button>");
     playersTurn = "<p class='whosTurn'>" + player2.name + "'s (" + player2.symbol + "'s) turn</p>";
@@ -116,53 +120,47 @@ var playerTurn = function() {
   $("#1").click(function(){
     id = "#1";
     checkTurn(id);
-    checkForWin();
+    checkForWin(id);
   });
   $("#2").click(function(){
     id = "#2";
     checkTurn(id);
-    checkForWin();
+    checkForWin(id);
   });
   $("#3").click(function(){
     id = "#3";
     checkTurn(id);
-    checkForWin();
+    checkForWin(id);
   });
   $("#4").click(function(){
     id = "#4";
     checkTurn(id);
-    checkForWin();
-
+    checkForWin(id);
   });
   $("#5").click(function(){
     id = "#5";
     checkTurn(id);
-    checkForWin();
-
+    checkForWin(id);
   });
   $("#6").click(function(){
     id = "#6";
     checkTurn(id);
-    checkForWin();
-
+    checkForWin(id);
   });
   $("#7").click(function(){
     id = "#7";
     checkTurn(id);
-    checkForWin();
-
+    checkForWin(id);
   });
   $("#8").click(function(){
     id = "#8";
     checkTurn(id);
-    checkForWin();
-
+    checkForWin(id);
   });
   $("#9").click(function(){
     id = "#9";
     checkTurn(id);
-    checkForWin();
-
+    checkForWin(id);
   });
 };
 
