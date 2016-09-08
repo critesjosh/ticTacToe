@@ -52,15 +52,28 @@ var page4 = function() {
 var page5x = function () {
   player1.symbol = "x";
   player2.symbol = "o";
-  playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
+  updateTurnStatus();
   page5();
 };
 
 var page5o = function () {
   player1.symbol = "o";
   player2.symbol = "x";
-  playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
+  updateTurnStatus();
   page5();
+};
+
+var updateTurnStatus = function () {
+  console.log(turn);
+  if ((turn % 2) === 0 && !playersTurn){
+    playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
+  } else if ((turn % 2) === 0) {
+    $(".whosTurn").text(player1.name + "'s (" + player1.symbol + "'s) turn");
+    playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
+  } else {
+    $(".whosTurn").text(player2.name + "'s (" + player2.symbol + "'s) turn");
+    playersTurn = "<p class='whosTurn'>" + player2.name + "'s (" + player2.symbol + "'s) turn</p>";
+  }
 };
 
 var page5 = function () {
@@ -71,13 +84,84 @@ var page5 = function () {
   playerTurn();
 };
 
+var playerTurn = function() {
+  $("#1").click(function(){
+    id = "#1";
+    checkTurn(id);
+  });
+  $("#2").click(function(){
+    id = "#2";
+    checkTurn(id);
+  });
+  $("#3").click(function(){
+    id = "#3";
+    checkTurn(id);
+  });
+  $("#4").click(function(){
+    id = "#4";
+    checkTurn(id);
+  });
+  $("#5").click(function(){
+    id = "#5";
+    checkTurn(id);
+  });
+  $("#6").click(function(){
+    id = "#6";
+    checkTurn(id);
+  });
+  $("#7").click(function(){
+    id = "#7";
+    checkTurn(id);
+  });
+  $("#8").click(function(){
+    id = "#8";
+    checkTurn(id);
+  });
+  $("#9").click(function(){
+    id = "#9";
+    checkTurn(id);
+  });
+};
+
 var checkTurn = function(id) {
   if ((turn % 2) === 0 ) {
     player1Turn(id);
-    $(".whosTurn").text(player2.name + "'s (" + player2.symbol + "'s) turn");
+    turn = turn + 1;
+    updateTurnStatus();
+    checkForWin(id);
+    if ( humanPlayers === 1) {
+      computerMove();
+      checkForWin();
+    }
   } else {
     player2Turn(id);
-    $(".whosTurn").text(player1.name + "'s (" + player1.symbol + "'s) turn");
+    turn = turn + 1;
+    updateTurnStatus();
+    checkForWin(id);
+  }
+};
+
+var player1Turn = function(id) {
+  if (!$(id).text()){
+    $(id).text(player1.symbol);
+  }
+};
+
+var computerMove = function () {
+  var randomSquare = Math.floor(Math.random() * (10 - 1)) + 1;
+  console.log(randomSquare);
+  if ( !$("#" + randomSquare).text() ) {
+    $("#" + randomSquare).text(player2.symbol);
+    turn = turn + 1;
+    updateTurnStatus();
+  } else {
+    computerMove();
+  }
+};
+
+var player2Turn = function(id) {
+  if (!$(id).text()) {
+    $(id).text(player2.symbol);
   }
 };
 
@@ -101,11 +185,7 @@ var checkForWin = function(id) {
   } else if ( $("#1").text() !== "" && $("#2").text() !== "" && $("#3").text() !== "" && $("#4").text() !== "" && $("#5").text() !== "" &&
    $("#6").text() !== "" && $("#7").text() !== "" && $("#8").text() !== "" && $("#9").text() !== "") {
     $(".page").html("<p>Draw</p><br><button onclick='page5()'>Play Again</button>");
-    if (turn % 2 === 0) {
-      playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
-    } else {
-      playersTurn = "<p class='whosTurn'>" + player2.name + "'s (" + player2.symbol + "'s) turn</p>";
-    }
+    updateTurnStatus();
   }
 };
 
@@ -113,73 +193,11 @@ var whoWon = function (id) {
   if ( player1.symbol == $(id).text() ){
     player1.score = player1.score + 1;
     $(".page").html("<p>" + player1.name + " wins!</p><br><button onclick='page5()'>Play Again</button>");
-    playersTurn = "<p class='whosTurn'>" + player2.name + "'s (" + player2.symbol + "'s) turn</p>";
+    updateTurnStatus();
   } else {
     player2.score = player2.score + 1;
     $(".page").html("<p>" + player2.name + " wins!</p><br><button onclick='page5()'>Play Again</button>");
-    playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
-  }
-};
-
-var playerTurn = function() {
-  $("#1").click(function(){
-    id = "#1";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#2").click(function(){
-    id = "#2";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#3").click(function(){
-    id = "#3";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#4").click(function(){
-    id = "#4";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#5").click(function(){
-    id = "#5";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#6").click(function(){
-    id = "#6";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#7").click(function(){
-    id = "#7";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#8").click(function(){
-    id = "#8";
-    checkTurn(id);
-    checkForWin(id);
-  });
-  $("#9").click(function(){
-    id = "#9";
-    checkTurn(id);
-    checkForWin(id);
-  });
-};
-
-var player1Turn = function(id) {
-  if (!$(id).text()){
-    $(id).text(player1.symbol);
-    turn = turn + 1;
-  }
-};
-
-var player2Turn = function(id) {
-  if (!$(id).text()) {
-    $(id).text(player2.symbol);
-    turn = turn + 1;
+    updateTurnStatus();
   }
 };
 
