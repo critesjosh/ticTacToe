@@ -101,6 +101,11 @@ var checkForWin = function(id) {
   } else if ( $("#1").text() !== "" && $("#2").text() !== "" && $("#3").text() !== "" && $("#4").text() !== "" && $("#5").text() !== "" &&
    $("#6").text() !== "" && $("#7").text() !== "" && $("#8").text() !== "" && $("#9").text() !== "") {
     $(".page").html("<p>Draw</p><br><button onclick='page5()'>Play Again</button>");
+    if (turn % 2 === 0) {
+      playersTurn = "<p class='whosTurn'>" + player1.name + "'s (" + player1.symbol + "'s) turn</p>";
+    } else {
+      playersTurn = "<p class='whosTurn'>" + player2.name + "'s (" + player2.symbol + "'s) turn</p>";
+    }
   }
 };
 
