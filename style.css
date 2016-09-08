@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+}
+
+button {
+  border: 2px solid black;
+}
+
+input {
+  border: 2px solid black;
+}
+
+table, th, td {
+    border: 2px solid black;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  height: 100px;
+  width: 100px;
+}
